@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url("../image/background.png");
+            background-size: cover;
+        }
+
+        .header {
+            overflow: hidden;
+            background-color: #3682e6;
+            padding: 20px 10px;
+        }
+
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 50px;
+            border-radius: 5px;
+        }
+
+        .header a.logo {
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .header a:hover {
+            background-color: rgb(16, 114, 212);
+            color: rgb(7, 7, 7);
+            margin-top: 10px;
+        }
+
+
+
+        .header-right {
+            float: right;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-top: 20px;
+            margin-right: 25px;
+        }
+
+        div.course_details {
+            background-color: rgba(31, 16, 168, 0.3);
+            width: 30%;
+            margin-left: 700px;
+            font-size: 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(red, green, blue, 0.3);
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            color: rgb(8, 8, 8);
+            margin-top: 130px;
+            text-align: left;
+            color: rgb(12, 102, 102);
+        }
+
+        .main {
+            margin-left: 20px;
+            margin-top: 50px;
+            color: #106459;
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+        }
+
+        input#btn {
+            width: 200px;
+            padding: 5px;
+            font-size: 25px;
+            font-family: sans-serif;
+            color: rgb(8, 75, 8);
+            background-color: rgb(230, 106, 5);
+            cursor: pointer;
+            box-shadow: 1px 1px 5px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-left: 45px;
+        }
+
+        h2 {
+            color: black;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a class="logo" href="Student.html">CodeSchool</a>
+        <div class="header-right">
+            <a class="home" href="home" style="margin-top: 10px">Home</a>
+            <a href="login" class="user" style="margin-top: 10px" id="logout">Logout</a>
+            <a class="userlogo" href="userdetails.html">
+                <h1 id="welcome"></h1>
+            </a>
+        </div>
+    </div>
+
+    <div class="course_details">
+        <main class="main">
+            <h1>Course Details</h1><br>
+            <p>
+            <h2><span id="courseName"><b></b> </span> </h2>
+            <b>Instructed by: </b><span id="instructor"></span><br>
+            <b>Total Topics Covered: </b>22 <br>
+            <b>Duration: </b>30hrs. <br>
+            <b>Accesibility: </b> Mobile, Desktop <br>
+            <b>Description: </b><span id="description"><br></span>
+            </p><br>
+            <input type="button" id="btn" name="enrollnow" value="Enroll Now" onclick="showEnrollNow()">
+        </main>
+    </div>
+</body>
+<script>
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
+
+    $(document).ready(function () {
+        const course_id = new URLSearchParams(window.location.search)
+        const courseId = getUrlParameter('course_id');
+        console.log(courseId)
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8082/courses',
+                success: function (result) {
+                    console.log(result)
+                    var courseDetails = result.find(o => o.id === Number(courseId))
+                    console.log(courseDetails)
+                    $("#instructor").html(courseDetails.instructor)
+                    $("#courseName").html(courseDetails.courseName)
+                    $("#description").html(courseDetails.description)
+                }
+            });
+    })
+
+    function showEnrollNow() {
+        var courseName = document.getElementById('courseName').innerHTML;
+        var courseId = courseId;
+        var instructedBy = document.getElementById('instructor').innerHTML;
+        var data = { courseName, instructedBy, courseId };
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' },
+            url: 'http://localhost:8082/newEnrollments/' + getUrlParameter('course_id'),
+            success: function (result) {
+                document.location.replace("http://localhost:8082/enrollment");
+                console.log(result);
+            },
+            error: function (e) {
+                alert("Enrollment already exist")
+            }
+        });
+    }
+    var logoutbutton = document.getElementById("logout")
+    logoutbutton.onclick = function () {
+        document.cookie = "jwt" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+</script>
+
+</html>

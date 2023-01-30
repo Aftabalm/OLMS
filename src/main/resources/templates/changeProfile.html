@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--    <script type="text/javascript" src="js/app_custom.js"></script>-->
+    <title>ChangeProfile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url("../image/background.png");
+            background-size: cover;
+        }
+
+        .header {
+            overflow: hidden;
+            background-color: #3682e6;
+            padding: 20px 10px;
+            height: 145px;
+        }
+
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 50px;
+            border-radius: 5px;
+        }
+
+        .header a.logo {
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .header a:hover {
+            background-color: rgb(16, 114, 212);
+            color: rgb(7, 7, 7);
+        }
+
+        .header a.active {
+            background-color: rgb(16, 114, 212);
+            color: rgb(255, 255, 255);
+            margin-top: 10px;
+        }
+
+        .header-right {
+            float: right;
+        }
+
+        body {
+            font: 400 15px Lato, sans-serif;
+            line-height: 1.8;
+            color: #303030;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #0d4e28;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        h4 {
+            font-size: 19px;
+            line-height: 1.375em;
+            color: #303030;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .jumbotron {
+            background-color: #1e5bf4;
+            color: #fff;
+            padding: 100px 25px;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .container-fluid {
+            padding: 60px 50px;
+        }
+
+        .bg-grey {
+            background-color: #f6f6f6;
+        }
+
+        .logo-small {
+            color: #1e5bf4;
+            font-size: 50px;
+        }
+
+        .logo {
+            color: #1e5bf4;
+            font-size: 200px;
+        }
+
+        table,
+        td {
+            border-width: thick;
+
+        }
+
+        table {
+            text-align: center;
+        }
+
+        .container-fluid>*[contenteditable='true'] {
+            border-width: thick;
+        }
+
+        .form-control,
+        .dataTable-input {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.125rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1;
+            color: #69707a;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #c5ccd6;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.35rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .container {
+            width: 1320px;
+        }
+
+        #box {
+            background-color: rgba(0, 0, 0, 0.3);
+            width: 80%;
+            margin-left: 200px;
+            font-size: 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(red, green, blue, 0.3);
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            color: rgb(8, 8, 8);
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="" class="logo">CodeSchool</a>
+        <div class="header-right">
+            <a class="active" href="#home">home</a>
+            <a href="login" class="user" style="margin-top: 10px" id="logout">Logout</a>
+            <a class="userlogo" href="userdetails.html">
+                <h1 id="welcome"></h1>
+            </a>
+        </div>
+    </div>
+    <div id="box">
+
+        <div class="container-fluid">
+            <div class="text-center">
+                <h2>Edit Profile</h2>
+                <div class="container">
+
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>First Name</td>
+                                <td style="border-width: medium; border-color: black;" id="firstName"
+                                    contenteditable='true'></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td style="border-width: medium; border-color: black;" id="lastName"
+                                    contenteditable='true'></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td id="email"></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td id="gender"></td>
+                            </tr>
+                            <tr>
+                                <td>DOB</td>
+                                <td id="dateOfBirth"></td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td style="border-width: medium; border-color: black;" id="address"
+                                    contenteditable='true'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <input type="button" class="btn btn-lg" value="Save Changes" id="save" />
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost:8082/profile/view',
+                        success: function (result) {
+                            $('#welcome').html("welcome " + result.firstName + " !");
+                            $('#firstName').html(result.firstName);
+                            $('#lastName').html(result.lastName);
+                            $('#email').html(result.email);
+                            $('#gender').html(result.gender);
+                            $('#dateOfBirth').html(result.dateOfBirth);
+                            $('#address').html(result.address);
+                        },
+                        error: function (e) {
+                            console.error(e);
+                        }
+                    });
+
+                    $('#save').click(function () {
+                        saveChanges();
+                    });
+                    function saveChanges() {
+                        var email = document.getElementById('email').innerHTML;
+                        var firstName = document.getElementById('firstName').innerHTML;
+                        var lastName = document.getElementById('lastName').innerHTML;
+                        var gender = document.getElementById('gender').innerHTML;
+                        var dob = document.getElementById('dateOfBirth').innerHTML;
+                        var address = document.getElementById('address').innerHTML;
+                        var data = { email, firstName, lastName, gender, dateOfBirth, address };
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://localhost:8082/profile/update',
+                            headers: { 'Content-Type': 'application/json' },
+                            data: JSON.stringify(data),
+                            success: function (data) {
+                                window.location.href = '/profile';
+                            }
+                        });
+                    };
+                })
+                var logoutbutton = document.getElementById("logout")
+                logoutbutton.onclick = function () {
+                    document.cookie = "jwt" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                }
+
+            </script>
+</body>
+
+</html>

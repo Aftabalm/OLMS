@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url("../image/background.png");
+            background-size: cover;
+        }
+
+        .header {
+            overflow: hidden;
+            background-color: #3682e6;
+            padding: 20px 10px;
+            height: 145px;
+        }
+
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 50px;
+            border-radius: 5px;
+        }
+
+        .header a.logo {
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .header a:hover {
+            background-color: rgb(16, 114, 212);
+            color: rgb(7, 7, 7);
+        }
+
+        .header a.active {
+            background-color: rgb(16, 114, 212);
+            color: rgb(255, 255, 255);
+            margin-top: 10px;
+        }
+
+        .header-right {
+            float: right;
+        }
+
+        div.homepage {
+            background-color: rgba(31, 16, 168, 0.3);
+            width: 30%;
+            margin-left: 700px;
+            font-size: 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(red, green, blue, 0.3);
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            color: rgb(8, 8, 8);
+            margin-top: 100px;
+        }
+
+        .main {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        input#btn,
+        input#btn1,
+        input#btn2 {
+            width: 250px;
+            padding: 5px;
+            font-size: 25px;
+            font-family: sans-serif;
+            color: rgb(8, 75, 8);
+            background-color: rgb(230, 106, 5);
+            cursor: pointer;
+            box-shadow: 1px 1px 5px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a class="logo">CodeSchool</a>
+        <div class="header-right">
+            <a class="active" href="#home">home</a>
+            <a href="login" class="user" style="margin-top: 10px" id="logout">Logout</a>
+            <a class="userlogo" href="profile">
+                <h1 id="welcome"></h1>
+            </a>
+        </div>
+    </div>
+    <div class="homepage" id="homepage">
+        <main class="main">
+            <h1 style="color: rgb(12, 83, 12)">Learn More! Grow More!</h1>
+            <!--        <h2>You Are?</h2>-->
+            <input type="button" id="btn" name="Explore Courses" value="Explore Courses">
+            <input type="button" id="btn1" name="Your Enrollments" value="Your Enrollments">
+            <input type="button" id="btn2" name="Create Course" value="Create Course"><br>
+        </main>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8082/userDetails',
+                success: function (result) {
+                    $('#welcome').html("welcome " + result.firstName + " !");
+                }
+            });
+        })
+
+        $(document).ready(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8082/home',
+                    contentType: "application/json",
+                    success: function (result) {
+                        document.location.replace("http://localhost:8082/student");
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#btn1').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8082/home',
+                    contentType: "application/json",
+                    success: function (result) {
+                        document.location.replace("http://localhost:8082/enrollment");
+                    }
+                });
+            });
+        });
+        $('#btn2').click(function () {
+            document.location.replace("http://localhost:8082/createCourse");
+        });
+        var logoutbutton = document.getElementById("logout")
+        logoutbutton.onclick = function () {
+            document.cookie = "jwt" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+
+    </script>
+</body>
+
+</html>

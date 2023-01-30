@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration form</title>
+    <style>
+        * {
+            margin-left: 0px;
+            padding: 0;
+        }
+
+        body {
+            background: url("https://img.freepik.com/free-vector/digital-online-education-concept-blank-space-laptop_255625-422.jpg?w=2000");
+            background-size: cover;
+        }
+
+        div.main {
+            width: 600px;
+            margin: 100px auto 0px auto;
+        }
+
+        #registern {
+            text-align: center;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
+        div.Register {
+            background-color: rgba(0, 0, 0, 0.2);
+            width: 100%;
+            font-size: 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(red, green, blue, 0.3);
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            color: rgb(8, 8, 8);
+            margin-top: -80px;
+        }
+
+        #confirmation {
+            background-color: rgba(0, 0, 0, 0.3);
+            width: 30%;
+            margin-left: 700px;
+            font-size: 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(red, green, blue, 0.3);
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            color: rgb(8, 8, 8);
+            margin-top: 100px;
+        }
+
+        form {
+            margin-left: 140px;
+        }
+
+        label {
+            font-family: sans-serif;
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        input#firstname {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: #fff;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input#lastname {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: #fff;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input#email {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: #fff;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input#password {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: #fff;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input#confirmPassword {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: #fff;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input#dob {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: #fff;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        textarea#address {
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            outline: 0;
+            padding: 7px;
+            background-color: rgb(255, 255, 255);
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+            height: 80px;
+        }
+
+        input#submit {
+            width: 100px;
+            padding: 5px;
+            font-size: 15px;
+            font-family: sans-serif;
+            font-weight: 600px;
+            color: rgb(19, 31, 19);
+            background-color: rgb(230, 106, 5);
+            cursor: pointer;
+            box-shadow: 1px 1px 5px;
+            margin-bottom: 20px;
+        }
+
+        input#reset {
+            width: 100px;
+            padding: 5px;
+            font-size: 15px;
+            font-family: sans-serif;
+            font-weight: 600px;
+            color: rgb(19, 31, 19);
+            background-color: rgb(230, 106, 5);
+            cursor: pointer;
+            box-shadow: 1px 1px 5px;
+        }
+
+        button {
+            width: 100px;
+            padding: 5px;
+            font-size: 15px;
+            font-family: sans-serif;
+            font-weight: 600px;
+            color: rgb(19, 31, 19);
+            background-color: rgb(230, 106, 5);
+            cursor: pointer;
+            box-shadow: 1px 1px 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<body>
+    <div class="main" id="main">
+        <div class="Register">
+            <h1 id="registern">Registration</h1>
+            <form id="Registration_form">
+                <label for="firstname">First name:</label><br>
+                <input type="text" id="firstname" name="fname" placeholder="Enter your first name"><br><br>
+                <label for="lastname">Last name:</label><br>
+                <input type="text" id="lastname" name="lname" placeholder="Enter your last name"><br><br>
+                <label for="email">Email id:</label><br>
+                <input type="text" id="email" name="email" placeholder="Enter your email" autocomplete="off"><br><br>
+                <label for="password">Password: </label><br>
+                <input type="password" id="password" name="password" placeholder="Create password" autocomplete="off"><br><br>
+                <label for="confirm password">Confirm Password: </label><br>
+                <input type="password" id="confirmPassword" name="password" placeholder="Re-enter password"><br><br>
+                <label for="DOB">Date of birth:</label><br>
+                <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" class="Date"><br><br>
+                <label for="Gender">Gender:</label><br>
+                <label for="male">Male</label>
+                <input type="radio" id="male" name="gender" value="Male">
+                <label for="female">Female</label>
+                <input type="radio" id="female" name="gender" value="Female">
+                <label for="transgender">Transgender</label>
+                <input type="radio" id="transgender" name="gender" value="Transgender">
+                <br><br>
+                <label for="address">Address</label><br>
+                <textarea id="address" style="width: 300px" name="address"
+                    placeholder="Enter your address here"></textarea><br><br>
+                <input type="reset" id="reset" name="reset" value="Reset">
+                <input type="button" id="submit" name="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#submit').click(function () {
+                var firstName = document.getElementById('firstname').value;
+                var lastName = document.getElementById('lastname').value;
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('confirmPassword').value;
+                var dateOfBirth = document.getElementById('dob').value;
+                var sex = document.getElementsByName('gender');
+                for (var i = 0; i < sex.length; i++) {
+                    if (sex[i].type == 'radio' && sex[i].checked) {
+                        var gender = sex[i].value;
+                        break;
+                    }
+                }
+                var address = document.getElementById('address').value;
+                var data = { firstName, lastName, email, password, confirmPassword, dateOfBirth, gender, address };
+                if (!!email && !!firstName && !!lastName && !!password && !!confirmPassword && !!gender && !!dateOfBirth && !!address) {
+                    if(password === confirmPassword){
+                            $.ajax({
+                                type: 'POST',
+                                url: 'http://localhost:8082/signUp',
+                                headers: { 'Content-Type': 'application/json' },
+                                dataType: 'json',
+                                data: JSON.stringify(data),
+                                success: function (result) {
+                                    console.log(result);
+                                    alert("Registration Successful");
+                                    window.location.replace("http://localhost:8082/login");
+                                },
+                                error: function (e) {
+                                    alert("Email already exist")
+                                }
+                            });
+                    }else{
+                        alert("re-entered password does not match with entered password");
+                    }
+
+                }else{
+                    alert("please fill all the required fields");
+                }
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var currentDate = new Date();
+            $('.Date').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                endDate: "currentDate",
+                maxDate: currentDate
+            }).on('changeDate', function (ev) {
+                $(this).datepicker('hide');
+            });
+            $('.Date').keyup(function () {
+                if (this.value.match(/[^0-9]/g)) {
+                    this.value = this.value.replace(/[^0-9^-]/g, '');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
